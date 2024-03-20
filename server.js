@@ -23,7 +23,7 @@ import path from "path";
 
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
-app.use(express.static(path.resolve(__dirname, "./client/dist")))
+app.use(express.static(path.resolve(__dirname, "./public")))
 
 //Cloudinary
 import cloudinary from "cloudinary";
@@ -36,9 +36,6 @@ cloudinary.config({
 })
 
 
-
-
-
 // Middleware
 if (process.env.NODE_ENV === 'development') {
   // Logging middleware for development environment
@@ -47,9 +44,9 @@ if (process.env.NODE_ENV === 'development') {
 app.use(cookieParser())
 app.use(express.json());
 // Routes
-app.get('/', (req, res) => {
-  res.send("Hello World");
-});
+// app.get('/', (req, res) => {
+//   res.send("Hello World");
+// });
 app.get("/api/v1/test", (req, res) => {
   res.json({ msg: "test route" });
 });
@@ -61,7 +58,7 @@ app.use('/api/v1/auth', authRouter)
 
 app.get('*', (req, res) => {
 
-  res.sendFile(path.resolve(__dirname, "./client/dist", 'index.html'))
+  res.sendFile(path.resolve(__dirname, "./public", 'index.html'))
 })
 
 // 404 Route
